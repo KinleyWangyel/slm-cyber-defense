@@ -1,0 +1,4 @@
+2026-11-04T14:00:00Z device=practice-camera source=192.0.2.10 event=login_success user=owner
+2026-11-04T14:01:00Z device=practice-camera source=192.0.2.20 event=login_failed user=admin
+2026-11-04T14:01:05Z device=practice-camera source=192.0.2.20 event=login_failed user=admin
+2026-11-04T14:01:10Z device=practice-camera source=192.0.2.20 event=login_failed user=admin

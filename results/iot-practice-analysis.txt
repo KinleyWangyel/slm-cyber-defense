@@ -1,0 +1,19 @@
+Analyzing practice logs. Please wait...
+
+AI analysis:
+
+Verdict: Suspicious
+
+Explanation:
+The three failed login attempts by the user "admin" from the source IP 192.0.2.20 within 60 seconds are classified as suspicious. The timestamps show the first login was successful at 14:00:00Z, followed by two failed attempts at 14:01:00Z and 14:01:05Z, respectively.
+
+Source IP: 192.0.2.20
+
+Quote the log lines supporting the verdict:
+```
+2026-11-04T14:01:00Z device=practice-camera source=192.0.2.20 event=login_failed user=admin
+2026-11-04T14:01:05Z device=practice-camera source=192.0.2.20 event=login_failed user=admin
+2026-11-04T14:01:10Z device=practice-camera source=192.0.2.20 event=login_failed user=admin
+```
+
+
