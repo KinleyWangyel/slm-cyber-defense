@@ -37,5 +37,11 @@ def read_iot_logs() -> str:
     except OSError as error:
         raise RuntimeError(f"Could not read IoT logs: {error}") from error
 
+@server.tool()
+def read_suricata_alert() -> str:
+    """Read the saved Suricata ping alert from the lab."""
+    alert_file = Path(__file__).parent / "logs" / "suricata-demo.jsonl"
+    return alert_file.read_text(encoding="utf-8").strip()
+
 if __name__ == "__main__":
     server.run()
