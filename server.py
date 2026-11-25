@@ -1,4 +1,6 @@
 from pathlib import Path
+import json
+import os
 import subprocess
 from mcp.server import MCPServer
 
@@ -39,9 +41,23 @@ def read_iot_logs() -> str:
 
 @server.tool()
 def read_suricata_alert() -> str:
-    """Read the saved Suricata ping alert from the lab."""
-    alert_file = Path(__file__).parent / "logs" / "suricata-demo.jsonl"
-    return alert_file.read_text(encoding="utf-8").strip()
+    """Read the latest alert from a Suricata JSONL file."""
+    default_file = Path(__file__).parent / "logs" / "suricata-demo.jsonl"
+    alert_file = Path(os.environ.get("BLUE_TEAM_SURICATA_FILE", str(default_file)))
+    latest = None
+
+    with alert_file.open(encoding="utf-8") as stream:
+        for line in stream:
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(event, dict) and event.get("event_type") == "alert":
+                latest = line.strip()
+
+    if latest is None:
+        raise RuntimeError(f"No Suricata alerts found in {alert_file}")
+    return latest
 
 if __name__ == "__main__":
     server.run()
